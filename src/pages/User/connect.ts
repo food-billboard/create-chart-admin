@@ -2,7 +2,7 @@ import { ConnectState } from '@/models/connect'
 
 export const mapStateToProps = (state: ConnectState) => {
   return {
-    isLogin: !!state.user.currentUser._id
+    isLogin: !!state.user.currentUser.id
   }
 }
 

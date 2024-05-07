@@ -6,7 +6,7 @@ import { IMAGE_FALLBACK } from '@/utils'
 export default [
   {
     title: 'id',
-    dataIndex: '_id',
+    dataIndex: 'id',
     copyable: true,
     hideInSearch: true 
   },
@@ -34,21 +34,30 @@ export default [
   },
   {
     title: '创建时间',
-    dataIndex: 'createdAt',
-    hideInSearch: true 
+    dataIndex: 'created',
+    hideInSearch: true,
+    valueType: 'date',
+    fieldProps: {
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }
   },
   {
     title: '修改时间',
-    dataIndex: 'updatedAt',
-    hideInSearch: true 
+    dataIndex: 'updated',
+    hideInSearch: true,
+    valueType: 'date',
+    fieldProps: {
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }
   },
   {
     title: '创建用户',
     dataIndex: 'user',
     hideInSearch: true,
-    renderText: (value: { username: string; _id: string }) => {
-      if (!value.username) return <span>-</span>;
-      return <a onClick={() => history.push(`/member/${value['_id']}`)}>{value.username}</a>;
+    renderText: (_: any, record: any) => {
+      const userData = record.expand?.user || {} 
+      if (!userData.username) return <span>-</span>;
+      return <a onClick={() => history.push(`/member/${userData.id}`)}>{userData.username}</a>;
     },
   },
   {

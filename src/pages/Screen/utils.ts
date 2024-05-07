@@ -33,7 +33,7 @@ export async function LeadIn(
         .then((data) => {
           return leadInScreen({
             type,
-            _id: data || '',
+            id: data || '',
           });
         })
         .then(() => {
@@ -53,7 +53,7 @@ export async function LeadIn(
 
 // 导出
 export async function exportData(params: {
-  _id: string;
+  id: string;
   type: API_SCREEN.ILeadInScreenParams['type'];
 }) {
   if (EXPORT_LOADING) return;

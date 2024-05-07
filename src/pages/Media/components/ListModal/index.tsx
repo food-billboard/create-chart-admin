@@ -60,7 +60,7 @@ const ListModal = forwardRef<ListModalRef, {}>((props, ref) => {
           const { name } = item
           const { message, color } = formatData(item) 
           return (
-            <div className={styles["media-valid-item"]} key={item["_id"]}>
+            <div className={styles["media-valid-item"]} key={item["id"]}>
               <p>{name}:</p>
               <p style={{color}}>{message}</p>
             </div>

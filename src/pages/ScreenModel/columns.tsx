@@ -6,7 +6,7 @@ import { IMAGE_FALLBACK } from '@/utils'
 export default [
   {
     title: 'id',
-    dataIndex: '_id',
+    dataIndex: 'id',
     copyable: true,
     hideInSearch: true 
   },
@@ -46,9 +46,9 @@ export default [
     title: '创建用户',
     dataIndex: 'user',
     hideInSearch: true,
-    renderText: (value: { username: string; _id: string }) => {
+    renderText: (value: { username: string; id: string }) => {
       if (!value.username) return <span>-</span>;
-      return <a onClick={() => history.push(`/member/${value['_id']}`)}>{value.username}</a>;
+      return <a onClick={() => history.push(`/member/${value['id']}`)}>{value.username}</a>;
     },
   },
   {

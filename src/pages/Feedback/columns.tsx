@@ -31,7 +31,7 @@ export default [
   },
   {
     title: 'id',
-    dataIndex: '_id',
+    dataIndex: 'id',
     hideInSearch: true,
   },
   ...commentView(),

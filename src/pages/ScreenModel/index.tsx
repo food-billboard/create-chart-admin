@@ -12,9 +12,9 @@ const ScreenManage = memo(() => {
   const actionRef = useRef<ActionType>()
 
   const handleDelete = useCallback(async (record: API_SCREEN.IGetScreenListData) => {
-    const { _id } = record
+    const { id } = record
 
-    await deleteScreenModel({ _id })
+    await deleteScreenModel({ id })
     .then(() => {
       return actionRef.current?.reloadAndRest?.()
     })
@@ -24,9 +24,9 @@ const ScreenManage = memo(() => {
   }, [])
 
   const handleExport = useCallback(async (record: API_SCREEN.IGetScreenListData) => {
-    const { _id } = record
+    const { id } = record
 
-    await exportData({ _id, type: 'model' })
+    await exportData({ id, type: 'model' })
     .catch(() => {
       message.info("导出失败")
     })
@@ -77,7 +77,7 @@ const ScreenManage = memo(() => {
         scroll={{ x: 'max-content' }}
         headerTitle="模板列表"
         actionRef={actionRef}
-        rowKey="_id"
+        rowKey="id"
         toolBarRender={() => {
           return [
             (
@@ -95,7 +95,7 @@ const ScreenManage = memo(() => {
         pagination={{
           pageSize: 10
         }}
-        request={({ current, ...nextParams }) => {
+        request={async ({ current, ...nextParams }) => {
           return getScreenModelList({
             currPage: (current || 1) - 1,
             ...nextParams

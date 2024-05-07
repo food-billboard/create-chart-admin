@@ -2,7 +2,9 @@ import React from 'react'
 import { Tag } from 'antd'
 import { history } from 'umi';
 
-const DATA_MAP = {
+const DATA_MAP: {
+  [key: string]: string 
+} = {
   image: 'magenta',
   color: 'red',
   text: 'volcano',
@@ -14,7 +16,9 @@ const DATA_MAP = {
   web: 'blue'
 }
 
-export const DATA_Name_MAP = {
+export const DATA_Name_MAP: {
+  [key: string]: string 
+} = {
   image: '图片',
   color: '颜色',
   text: '文本',
@@ -29,7 +33,7 @@ export const DATA_Name_MAP = {
 export default [
   {
     title: 'id',
-    dataIndex: '_id',
+    dataIndex: 'id',
     hideInSearch: true 
   },
   {
@@ -62,9 +66,9 @@ export default [
     title: '创建用户',
     dataIndex: 'user',
     hideInSearch: true,
-    renderText: (value: { username: string; _id: string }) => {
+    renderText: (value: { username: string; id: string }) => {
       if (!value.username) return <span>-</span>;
-      return <a onClick={() => history.push(`/member/${value['_id']}`)}>{value.username}</a>;
+      return <a onClick={() => history.push(`/member/${value['id']}`)}>{value.username}</a>;
     },
   },
   {

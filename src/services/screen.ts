@@ -6,7 +6,7 @@ import PocketBase, {
 // 大屏列表
 export const getScreenList = (
   params: API_SCREEN.IGetScreenListParams,
-) => {
+):Promise<API_SCREEN.IGetScreenListRes> => {
   const { currPage, pageSize, content, flag } = params;
   return PocketBase.collection('screen').getList<API_SCREEN.IGetScreenListRes>(
     currPage,
@@ -29,9 +29,10 @@ export const getScreenList = (
           operator: '~',
         },
       ]),
-      fields: 'id,description,name,flag,poster,enable',
+      expand: 'user',
+      fields: 'id,description,name,flag,poster,enable,expand.user.username,expand.user.avatar,expand.user.id,created,updated,version',
     },
-  );
+  ) as any;
 };
 
 // 大屏删除
@@ -60,7 +61,7 @@ export const disabledScreen = (
 // 大屏模板列表
 export const getScreenModelList = (
   params: API_SCREEN.IGetScreenListParams,
-) => {
+): Promise<API_SCREEN.IGetScreenListRes> => {
   const { currPage, pageSize, content, flag } = params;
   return PocketBase.collection('model').getList<API_SCREEN.IGetScreenListRes>(
     currPage,
@@ -85,7 +86,7 @@ export const getScreenModelList = (
       ]),
       fields: 'id,description,name,flag,poster,enable',
     },
-  );
+  ) as any;
 };
 
 // 大屏模板删除
@@ -114,7 +115,7 @@ export const postScreenMock = async (data: API_SCREEN.IPostScreenMockDataParams)
 }
 
 // mock数据删除
-export const deleteScreenMock = async (params: { _id: string }) => {
+export const deleteScreenMock = async (params: { id: string }) => {
   return request('/api/manage/screen/mock', {
     method: 'DELETE',
     params

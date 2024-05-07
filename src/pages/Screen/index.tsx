@@ -3,7 +3,7 @@ import { Button, message, Space, Popconfirm } from 'antd'
 import { PageHeaderWrapper } from '@ant-design/pro-layout'
 import ProTable from '@ant-design/pro-table'
 import type { ActionType } from '@ant-design/pro-table'
-import { getScreenList, deleteScreenList } from '@/services'
+import { getScreenList, deleteScreen } from '@/services'
 import column from './columns'
 import { exportData, LeadIn } from './utils'
 
@@ -12,9 +12,8 @@ const ScreenManage = memo(() => {
   const actionRef = useRef<ActionType>()
 
   const handleDelete = useCallback(async (record: API_SCREEN.IGetScreenListData) => {
-    const { _id } = record
 
-    await deleteScreenList({ _id })
+    await deleteScreen({ id: record.id })
     .then(() => {
       return actionRef.current?.reloadAndRest?.()
     })
@@ -24,9 +23,9 @@ const ScreenManage = memo(() => {
   }, [])
 
   const handleExport = useCallback(async (record: API_SCREEN.IGetScreenListData) => {
-    const { _id } = record
+    const { id } = record
 
-    await exportData({ _id, type: 'screen' })
+    await exportData({ id, type: 'screen' })
     .catch(() => {
       message.info("导出失败")
     })
@@ -47,6 +46,7 @@ const ScreenManage = memo(() => {
         dataIndex: 'option',
         valueType: 'option',
         fixed: 'right',
+        width: 120,
         render: (_: any, record: API_SCREEN.IGetScreenListData) => {
           return (
             <Space>
@@ -78,7 +78,7 @@ const ScreenManage = memo(() => {
         scroll={{ x: 'max-content' }}
         headerTitle="大屏列表"
         actionRef={actionRef}
-        rowKey="_id"
+        rowKey="id"
         toolBarRender={() => {
           return [
             (
@@ -96,7 +96,7 @@ const ScreenManage = memo(() => {
         pagination={{
           pageSize: 10
         }}
-        request={({ current, createdAt, ...nextParams }) => {
+        request={async ({ current, createdAt, ...nextParams }) => {
           return getScreenList({
             currPage: (current || 1) - 1,
             createdAt: JSON.stringify(createdAt) as any,

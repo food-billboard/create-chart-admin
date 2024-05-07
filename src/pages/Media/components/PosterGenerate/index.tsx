@@ -30,7 +30,7 @@ const ConfirmModal = forwardRef(
       async (cover: boolean) => {
         setLoading(true)
         await generateVideoPoster({
-          _id: activeKey,
+          id: activeKey,
           overlap: cover,
         })
         .then(_ => {

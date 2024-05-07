@@ -74,9 +74,9 @@ const MediaManage = memo(() => {
       return commonDeleteMethod<API_MEDIA.IGetMediaListData>(
         selectedRows,
         (row: API_MEDIA.IGetMediaListData) => {
-          const { _id } = row;
+          const { id } = row;
           return deleteMedia({
-            _id,
+            id,
             type: MEDIA_TYPE_MAP[activeKey] as any,
           });
         },
@@ -111,7 +111,7 @@ const MediaManage = memo(() => {
           return getMediaValid({
             isdelete: isDelete,
             type: MEDIA_TYPE_MAP[activeKey] as any,
-            _id: idList,
+            id: idList,
           });
         })
         .then((data) => {
@@ -172,7 +172,7 @@ const MediaManage = memo(() => {
                     <Menu.Item>
                       <a
                         style={{ color: '#1890ff' }}
-                        onClick={getProcess.bind(null, record['_id'])}
+                        onClick={getProcess.bind(null, record['id'])}
                       >
                         完成度检测
                       </a>
@@ -181,7 +181,7 @@ const MediaManage = memo(() => {
                       <Menu.Item>
                         <a
                           style={{ color: '#1890ff' }}
-                          onClick={generatePoster.bind(null, record['_id'])}
+                          onClick={generatePoster.bind(null, record['id'])}
                         >
                           海报生成
                         </a>
@@ -263,7 +263,7 @@ const MediaManage = memo(() => {
         headerTitle="媒体资源列表"
         pagination={{ defaultPageSize: 10 }}
         actionRef={actionRef}
-        rowKey="_id"
+        rowKey="id"
         toolBarRender={(action, { selectedRows }) => [
           selectedRows && selectedRows.length > 0 && (
             <Dropdown
@@ -273,7 +273,7 @@ const MediaManage = memo(() => {
                     if (e.key === 'remove') {
                       await handleRemove(selectedRows);
                     } else if (e.key === 'valid') {
-                      await getProcess(selectedRows.map((item) => item['_id']));
+                      await getProcess(selectedRows.map((item) => item['id']));
                     }
                   }}
                   selectedKeys={[]}

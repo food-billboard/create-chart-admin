@@ -107,7 +107,7 @@ const CreateForm = forwardRef<IFormRef, IProps>((props, ref) => {
         rules={[{ required: true, message: '请选择文件状态' }]}
       />
       <Form.Item
-        name="_id"
+        name="id"
       >
         <Input type="hidden" />
       </Form.Item>

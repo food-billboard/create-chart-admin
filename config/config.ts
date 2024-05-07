@@ -1,6 +1,5 @@
 import { defineConfig } from 'umi';
 import { merge } from 'lodash';
-import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routerConfig from './router-config';
@@ -44,13 +43,6 @@ const developmentConfig: any = merge({}, commonConfig, {
   define: {
     'process.env.REACT_APP_ENV': 'dev',
   },
-  chainWebpack(config: any) {
-    config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
-      {
-        languages: ['javascript', 'json'],
-      },
-    ]);
-  },
 });
 
 const productionConfig: any = merge({}, commonConfig, {
@@ -62,12 +54,6 @@ const productionConfig: any = merge({}, commonConfig, {
   base: '/api/backend/',
   publicPath: '/api/backend/',
   chainWebpack(config: any) {
-
-    config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
-      {
-        languages: ['javascript', 'json'],
-      },
-    ]);
     // 过滤掉momnet的那些不使用的国际化文件
     config
       .plugin('replace')
@@ -88,13 +74,13 @@ const productionConfig: any = merge({}, commonConfig, {
             lfpantdesigns: {
               name: 'antdesigns',
               chunks: 'all',
-              test: /[\\/]node_modules[\\/](@antv|antd|@ant-design)/,
+              test: /[\\/]node_modules[\\/](antd|@ant-design)/,
               priority: 10,
             },
             lfpvendors: {
               name: 'vendors',
               chunks: 'all',
-              test: /[\\/]node_modules[\\/](lodash|moment|react|dva|postcss|mapbox-gl|video)/,
+              test: /[\\/]node_modules[\\/](lodash|moment|react|dva|postcss)/,
               priority: 10,
             },
             lfpcommons: {

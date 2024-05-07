@@ -14,7 +14,7 @@ export default [
   },
   {
     title: 'id',
-    dataIndex: '_id',
+    dataIndex: 'id',
     hideInSearch: true,
     copyable: true,
   },
@@ -23,8 +23,8 @@ export default [
     dataIndex: 'origin',
     hideInSearch: true,
     renderText: (val: API_MEDIA.IGetMediaListData["origin"]) => {
-      if(!val._id) return '-'
-      return <a onClick={() => history.push(`/member/${val._id}`)}>{val.name}</a>
+      if(!val.id) return '-'
+      return <a onClick={() => history.push(`/member/${val.id}`)}>{val.name}</a>
     }
   },
   {

@@ -36,15 +36,15 @@ export default [
         routes: [
           {
             path: '/',
-            redirect: '/home',
+            redirect: '/screen/list',
           },
-          {
-            path: '/home',
-            component: '@/pages/Dashboard',
-            name: 'home',
-            icon: 'home',
-            title: '首页',
-          },
+          // {
+          //   path: '/home',
+          //   component: '@/pages/Dashboard',
+          //   name: 'home',
+          //   icon: 'home',
+          //   title: '首页',
+          // },
           {
             path: '/media',
             name: 'media',
@@ -55,13 +55,13 @@ export default [
                 path: '/media',
                 component: '@/pages/Media',
               },
-              {
-                path: '/media/image',
-                component: '@/pages/Image',
-                title: '图片详情',
-                name: 'mediadetailimage',
-                hideInMenu: true,
-              },
+              // {
+              //   path: '/media/image',
+              //   component: '@/pages/Image',
+              //   title: '图片详情',
+              //   name: 'mediadetailimage',
+              //   hideInMenu: true,
+              // },
             ],
           },
           {

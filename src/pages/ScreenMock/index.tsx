@@ -14,9 +14,9 @@ const ScreenMockManage = memo(() => {
   const formRef = useRef<IFormRef>(null)
 
   const handleDelete = useCallback(async (record: API_SCREEN.IGetScreenMockData) => {
-    const { _id } = record
+    const { id } = record
 
-    await deleteScreenMock({ _id })
+    await deleteScreenMock({ id })
     .then(() => {
       return actionRef.current?.reloadAndRest?.()
     })
@@ -29,8 +29,8 @@ const ScreenMockManage = memo(() => {
     formRef.current?.open(record)
   }, [])
 
-  const handleConfrim = useCallback(async (value: API_SCREEN.IPostScreenMockDataParams & { _id?: string }) => {
-    const method = value._id ? updateScreenMock : postScreenMock 
+  const handleConfrim = useCallback(async (value: API_SCREEN.IPostScreenMockDataParams & { id?: string }) => {
+    const method = value.id ? updateScreenMock : postScreenMock 
     return method(value as any)
     .then(() => {
       return true 
@@ -84,7 +84,7 @@ const ScreenMockManage = memo(() => {
         scroll={{ x: 'max-content' }}
         headerTitle="大屏Mock数据列表"
         actionRef={actionRef}
-        rowKey="_id"
+        rowKey="id"
         toolBarRender={() => {
           return [
             (

@@ -12,7 +12,7 @@ import type { Store } from 'antd/lib/form/interface'
 import React, { useCallback, useMemo, useRef, useState, forwardRef, useImperativeHandle } from 'react'
 import { DATA_Name_MAP } from './columns'
 
-type FormData = API_SCREEN.IPostScreenMockDataParams & { _id?: string }
+type FormData = API_SCREEN.IPostScreenMockDataParams & { id?: string }
 
 interface IProps {
   onCancel?: () => any
@@ -23,7 +23,9 @@ export interface IFormRef {
   open: (values?: API_SCREEN.IGetScreenMockData) => void
 }
 
-const ConfigMap = {
+const ConfigMap: {
+  [key: string]: any 
+} = {
   text: (props: any) => {
     const { propsValue: value, onDataChange: onChange } = props
     const { max = 20, min = 1, language_type, text_type } = value || {}
@@ -461,12 +463,12 @@ const CreateForm = forwardRef<IFormRef, IProps>((props, ref) => {
     setVisible(true)
     if (!values) return
 
-    const { _id, data_kind, description, config_type, config } = values
+    const { id, data_kind, description, config_type, config } = values
 
     formRef.current?.setFieldsValue({
       data_kind,
       description,
-      _id,
+      id,
       config_type,
     })
     setConfigValue((prev: any) => {
@@ -497,10 +499,10 @@ const CreateForm = forwardRef<IFormRef, IProps>((props, ref) => {
   }, [onCancel, visible])
 
   const onFinish = useCallback(async (values: Store) => {
-    const { data_kind, _id, description, config_type } = values
+    const { data_kind, id, description, config_type } = values
     const params = {
       data_kind,
-      _id,
+      id,
       description,
       config_type,
       config: {
@@ -587,7 +589,7 @@ const CreateForm = forwardRef<IFormRef, IProps>((props, ref) => {
         }
       </Form.Item>
       <Form.Item
-        name="_id"
+        name="id"
       >
         <Input type="hidden" />
       </Form.Item>

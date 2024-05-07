@@ -28,7 +28,7 @@ const FeedbackManage = memo(() => {
   const handleAdd = useCallback(async (fields: TFeedbackEditData) => {
 
     const hide = message.loading('正在修改')
-    const params = pick(fields, ['_id', 'status', 'description']) as API_USER.IPutFeedbackParams
+    const params = pick(fields, ['id', 'status', 'description']) as API_USER.IPutFeedbackParams
 
     return putUserFeedback(params)
     .then(() => {
@@ -54,9 +54,9 @@ const FeedbackManage = memo(() => {
 
   const handleRemove = useCallback(async (selectedRows: API_USER.IGetFeedbackData[]) => {
     return commonDeleteMethod<API_USER.IGetFeedbackData>(selectedRows, (row: API_USER.IGetFeedbackData) => {
-      const { _id } = row
+      const { id } = row
       return deleteUserFeedback({
-        _id
+        id
       })
     }, actionRef.current?.reloadAndRest)
   }, [])
@@ -121,7 +121,7 @@ const FeedbackManage = memo(() => {
         headerTitle="用户反馈列表"
         actionRef={actionRef}
         pagination={{defaultPageSize: 10}}
-        rowKey="_id"
+        rowKey="id"
         toolBarRender={(action, { selectedRows }) => [
           selectedRows && selectedRows.length > 0 && (
             <Dropdown

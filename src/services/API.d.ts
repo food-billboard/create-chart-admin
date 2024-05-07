@@ -61,7 +61,7 @@ declare namespace API_USER {
   }
 
   export interface IGetUserFansListParams extends IGetUserListParams {
-    _id: string;
+    id: string;
   }
 
   export interface IGetUserAttentionsListParams extends IGetUserFansListParams {}
@@ -76,7 +76,7 @@ declare namespace API_USER {
   }
 
   export interface IGetUserListResData {
-    _id: string;
+    id: string;
     hot: number;
     fans_count: number;
     issue_count: number;
@@ -105,33 +105,33 @@ declare namespace API_USER {
   }
 
   export interface IPutUserParams extends IPostUserParams {
-    _id: string;
+    id: string;
   }
 
-  export interface IDeleteUserParams extends Pick<IPUTUserParams, '_id'> {}
+  export interface IDeleteUserParams extends Pick<IPUTUserParams, 'id'> {}
 
   export interface IGetUserDetailParams extends IDeleteUserParams {}
 
   export interface IGetUserDetailRes extends IGetUserListResData {}
 
   export interface IDeleteUserCommentParams {
-    _id: string;
+    id: string;
   }
 
   export type TSourceType = 'comment' | 'movie';
 
   export interface IGetUserCommentListParams
     extends Exclude<IGetUserListParams, 'role' | 'status' | 'content'> {
-    _id: string;
+    id: string;
     source_type?: TSourceType;
     like?: 1 | -1;
     comment?: 1 | -1;
   }
 
   export interface ICommentData {
-    _id: string;
+    id: string;
     user_info: {
-      _id: string;
+      id: string;
       username: string;
     };
     createdAt: string;
@@ -160,9 +160,9 @@ declare namespace API_USER {
   }
 
   export interface IGetFeedbackData {
-    _id: string;
+    id: string;
     user_info: {
-      _id: string;
+      id: string;
       username: string;
     };
     createdAt: string;
@@ -181,7 +181,7 @@ declare namespace API_USER {
   }
 
   export interface IPutFeedbackParams {
-    _id: string;
+    id: string;
     description?: string;
     status: TFeedbackStatus;
   }
@@ -193,10 +193,10 @@ declare namespace API_USER {
   }
 
   export interface IGetUserIssueData {
-    _id: string;
+    id: string;
     name: string;
     author: {
-      _id: string;
+      id: string;
       username: string;
     };
     createdAt: string;
@@ -217,7 +217,7 @@ declare namespace API_USER {
   }
 
   export interface IGetUserRateData {
-    _id: string;
+    id: string;
     name: string;
     author_rate: number;
     rate_person: number;
@@ -239,7 +239,7 @@ declare namespace API_USER {
 
 declare namespace API_ADMIN {
   export interface IGetAdminInfoRes {
-    _id: string;
+    id: string;
     hot: number;
     fans: number;
     issue: number;
@@ -276,7 +276,7 @@ declare namespace API_ADMIN {
   }
 
   export interface IGetAdminIssueListData {
-    _id: string;
+    id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
@@ -299,7 +299,7 @@ declare namespace API_ADMIN {
   }
 
   export interface IGetAdminCommentData {
-    _id: string;
+    id: string;
     createdAt: string;
     updatedAt: string;
     sub_comments: number;
@@ -344,7 +344,7 @@ declare namespace API_MEDIA {
     pageSize?: number;
     content?: string;
     type: 0 | 1 | 2;
-    _id?: string;
+    id?: string;
     origin_type?: API_DATA.IDataSourceType;
     auth?: TAuth;
     status?: TStatus;
@@ -357,7 +357,7 @@ declare namespace API_MEDIA {
   }
 
   export interface IGetMediaListData {
-    _id: string;
+    id: string;
     src: string;
     name: string;
     poster?: string;
@@ -367,7 +367,7 @@ declare namespace API_MEDIA {
     white_list_count: number;
     origin: {
       name: string;
-      _id: string;
+      id: string;
     };
     auth: TAuth;
     info: {
@@ -379,19 +379,19 @@ declare namespace API_MEDIA {
   }
 
   export interface IPutMediaParams extends Pick<IGetMediaListParams, 'auth' | 'status' | 'auth'> {
-    _id: string;
+    id: string;
     type: 0 | 1 | 2;
     name?: string;
   }
 
-  export interface IDeleteMediaParams extends Pick<IPutMediaParams, '_id' | 'type'> {}
+  export interface IDeleteMediaParams extends Pick<IPutMediaParams, 'id' | 'type'> {}
 
-  export interface IGetMediaValidParams extends Pick<IPutMediaParams, '_id' | 'type'> {
+  export interface IGetMediaValidParams extends Pick<IPutMediaParams, 'id' | 'type'> {
     isdelete?: boolean;
   }
 
   export interface IPutVideoPoster {
-    _id: string;
+    id: string;
     time?: string;
     auth?: 'PRIVATE' | 'PUBLIC';
     origin_type?: 'ORIGIN' | 'USER';
@@ -403,7 +403,7 @@ declare namespace API_MEDIA {
     complete: boolean;
     error: boolean;
     exists: boolean;
-    _id: string;
+    id: string;
     src: string;
     name: string;
   };
@@ -414,14 +414,14 @@ declare namespace API_MEDIA {
 declare namespace API_SCREEN {
   export type IGetScreenMockData = {
     data_kind: string;
-    _id: string;
+    id: string;
     description: string;
     config_type: string;
     config: any;
     user: {
       username: string;
       avatar: string;
-      _id: string;
+      id: string;
     };
     createdAt: string;
     updatedAt: string;
@@ -435,7 +435,7 @@ declare namespace API_SCREEN {
   };
 
   export type IPutScreenMockDataParams = IPostScreenMockDataParams & {
-    _id: string;
+    id: string;
   };
 
   export type IGetScreenMockRes = {
@@ -453,7 +453,7 @@ declare namespace API_SCREEN {
   };
 
   export type IGetScreenListData = {
-    _id: string;
+    id: string;
     flag: 'PC' | 'H5';
     name: string;
     description: string;
@@ -462,7 +462,7 @@ declare namespace API_SCREEN {
     user: {
       username: string;
       avatar: string;
-      _id: string;
+      id: string;
     };
     enable: boolean;
     poster: string;
@@ -475,7 +475,7 @@ declare namespace API_SCREEN {
   };
 
   export type ILeadInScreenParams = {
-    _id: string;
+    id: string;
     type: 'screen' | 'model';
   };
 
