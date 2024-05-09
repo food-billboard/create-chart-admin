@@ -1,6 +1,5 @@
 import React, { useRef, useCallback, memo, useMemo } from 'react'
-import { Button, Dropdown, message, Menu, Space } from 'antd'
-import { PageHeaderWrapper } from '@ant-design/pro-layout'
+import { Button, Dropdown, message, Space } from 'antd'
 import ProTable from '@ant-design/pro-table'
 import type { ActionType } from '@ant-design/pro-table'
 import { DownOutlined } from '@ant-design/icons'
@@ -115,7 +114,7 @@ const FeedbackManage = memo(() => {
   }, [handleAdd])
 
   return (
-    <PageHeaderWrapper>
+    <>
       <ProTable
         scroll={{ x: 'max-content' }}
         headerTitle="用户反馈列表"
@@ -125,18 +124,20 @@ const FeedbackManage = memo(() => {
         toolBarRender={(action, { selectedRows }) => [
           selectedRows && selectedRows.length > 0 && (
             <Dropdown
-              overlay={
-                <Menu
-                  onClick={async e => {
-                    if (e.key === 'remove') {
-                      await handleRemove(selectedRows)
-                    }
-                  }}
-                  selectedKeys={[]}
-                >
-                  <Menu.Item key="remove">批量删除</Menu.Item>
-                </Menu>
-              }
+              menu={{
+                onClick: async e => {
+                  if (e.key === 'remove') {
+                    await handleRemove(selectedRows)
+                  }
+                },
+                selectedKeys: [],
+                items: [
+                  {
+                    key: 'remove',
+                    label: '批量删除'
+                  }
+                ]
+              }}
             >
               <Button key="many">
                 批量操作 <DownOutlined />
@@ -168,7 +169,7 @@ const FeedbackManage = memo(() => {
         ref={feedbackRef}
         onOk={onInputOk}
       />
-  </PageHeaderWrapper>
+  </>
   )
 })
 

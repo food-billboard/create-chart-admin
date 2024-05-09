@@ -28,18 +28,18 @@ export default [
   },
   {
     title: '创建时间',
-    dataIndex: 'createdAt',
+    dataIndex: 'created',
     valueType: 'dateRange',
     hideInTable: true 
   },
   {
     title: '创建时间',
-    dataIndex: 'createdAt',
+    dataIndex: 'created',
     hideInSearch: true 
   },
   {
     title: '修改时间',
-    dataIndex: 'updatedAt',
+    dataIndex: 'updated',
     hideInSearch: true 
   },
   {

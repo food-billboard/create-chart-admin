@@ -6,8 +6,6 @@ export type DefaultSettings = ProSettings & {
 
 const proSettings: DefaultSettings = {
   navTheme: 'light',
-  // 拂晓蓝
-  primaryColor: '#1890ff',
   layout: 'mix',
   contentWidth: 'Fluid',
   fixedHeader: false,
@@ -18,7 +16,6 @@ const proSettings: DefaultSettings = {
   },
   title: '数据管理后台',
   pwa: false,
-  // logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   iconfontUrl: '',
 };
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Modal, message } from 'antd'
 import { parse } from 'querystring'
 import { API_DOMAIN } from '../../config/proxy'
@@ -56,7 +55,7 @@ export const removeLocalStorage = (key: string) => {
 
 // 处理query 传参的时候导致的空字符串查询问题（后端不愿意给处理）
 export const formatQuery = (query: any ={})=>{
-  const ret = {}
+  const ret: any = {}
   Object.keys(query).forEach((key) => {
     if( query[key] !== null && query[key] !== undefined && query[key]!=='' ){
       ret[key] = query[key]
@@ -138,3 +137,9 @@ export async function commonDeleteMethod<T=any>(items: T[], action: (item: T) =>
   return response
 }
 
+export const createUploadResultFileUrl = (
+  data: API_MEDIA.MediaData,
+) => {
+  const { collectionId, id, file } = data;
+  return `${process.env.API_IMPROVE_URL}/api/files/${collectionId}/${id}/${file}`;
+};

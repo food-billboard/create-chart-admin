@@ -67,34 +67,40 @@ class AvatarDropdown extends Component<any> {
   )
 
   readonly menuHeaderDropdown = (
-    <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick as any}>
-      {/* {this.props.menu && (
-        <Menu.Item key="center">
-          <UserOutlined />
-          个人中心
-        </Menu.Item>
-      )}
-      {this.props.menu && (
-        <Menu.Item key="settings">
-          <SettingOutlined />
-          个人设置
-        </Menu.Item>
-      )} */}
-      <Menu.Item key="center">
-        <UserOutlined />
-        个人中心
-      </Menu.Item>
-      <Menu.Item key="settings">
-        <SettingOutlined />
-        个人设置
-      </Menu.Item>
-      {this.props.menu && <Menu.Divider />}
-
-      <Menu.Item key="logout">
-        <LogoutOutlined />
-        退出登录
-      </Menu.Item>
-    </Menu>
+    <Menu 
+      className={styles.menu} 
+      selectedKeys={[]} 
+      onClick={this.onMenuClick as any}
+      items={[
+        {
+          key: 'center',
+          label: (
+            <>
+              <UserOutlined />
+              个人中心
+            </>
+          )
+        },
+        {
+          key: 'settings',
+          label: (
+            <>
+              <SettingOutlined />
+              个人设置
+            </>
+          )
+        },
+        {
+          key: 'logout',
+          label: (
+            <>
+              <LogoutOutlined />
+              退出登录
+            </>
+          )
+        }
+      ]}
+    />
   )
 
   public render = () => {

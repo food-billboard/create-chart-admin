@@ -1,7 +1,7 @@
-import moment from 'moment'
-import 'moment/locale/zh-cn'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
 
-moment.locale('zh-cn')
+dayjs.locale('zh-cn')
 
 export const dva = {
   config: {

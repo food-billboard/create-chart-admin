@@ -63,7 +63,7 @@ export default memo(forwardRef<IFeedbackModalRef, IFeedbackModalProps>((props, r
 
   return (
     <Modal
-      visible={visible}
+    open={visible}
       okText="确定"
       cancelText="取消"
       title='提示'

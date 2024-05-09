@@ -4,6 +4,9 @@ import { DefaultFooter } from '@ant-design/pro-layout';
 
 export default () => (
   <DefaultFooter
+    style={{
+      backgroundColor: 'transparent'
+    }}
     copyright="2020 傻瓜技术部抄袭"
     links={[
       // {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { DatePicker } from 'antd'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 const { RangePicker } = DatePicker
 
@@ -37,18 +37,18 @@ export default [
   ...commentView(),
   {
     title: '创建时间',
-    dataIndex: 'createdAt',
+    dataIndex: 'created',
     sorter: true,
     valueType: 'date',
     hideInSearch: true,
     renderFormItem: (_: any, { type, defaultRender, ...rest }: any) => {
       return <RangePicker {...rest} />
     },
-    renderText: (val: string) => moment(val).format('YYYY-MM-DD hh:mm:ss')
+    renderText: (val: string) => dayjs(val).format('YYYY-MM-DD HH:mm:ss')
   },
   {
     title: '创建时间',
-    dataIndex: 'createdAt',
+    dataIndex: 'created',
     valueType: 'dateRange',
     hideInTable: true,
     search: {
@@ -62,9 +62,9 @@ export default [
   },
   {
     title: '更新时间',
-    dataIndex: 'updatedAt',
+    dataIndex: 'updated',
     sorter: true,
     hideInSearch: true,
-    renderText: (val: string) => moment(val).format('YYYY-MM-DD hh:mm:ss')
+    renderText: (val: string) => dayjs(val).format('YYYY-MM-DD HH:mm:ss')
   },
 ]

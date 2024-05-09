@@ -1,9 +1,7 @@
-const { REACT_APP_ENV } = process.env;
 
 export default [
   {
     path: '/user',
-    // layout: false,
     component: '@/layouts/UserLayout',
     routes: [
       {
@@ -55,13 +53,6 @@ export default [
                 path: '/media',
                 component: '@/pages/Media',
               },
-              // {
-              //   path: '/media/image',
-              //   component: '@/pages/Image',
-              //   title: '图片详情',
-              //   name: 'mediadetailimage',
-              //   hideInMenu: true,
-              // },
             ],
           },
           {
@@ -96,17 +87,6 @@ export default [
                   {
                     path: '/screen/model',
                     component: '@/pages/ScreenModel',
-                  },
-                ],
-              },
-              {
-                path: '/screen/mock',
-                title: 'mock数据管理',
-                name: 'mock',
-                routes: [
-                  {
-                    path: '/screen/mock',
-                    component: '@/pages/ScreenMock',
                   },
                 ],
               },

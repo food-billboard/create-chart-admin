@@ -64,7 +64,7 @@ class Register extends Component<any> {
             )}
             <Email 
               name="email"
-              placeholder="请输入邮箱，随便输"
+              placeholder="请输入邮箱"
             />
             <Captcha
               name="captcha"

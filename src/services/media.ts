@@ -1,41 +1,24 @@
-import { request } from '@/utils'
+import PocketBase from '../utils/pocketBaseRequest';
 
-// 媒体获取
-export const getMediaList = (params: API_MEDIA.IGetMediaListParams) => {
-  return request<API_MEDIA.IGetMediaListRes>('/api/manage/media', {
-    method: 'GET',
-    params
-  })
+// 获取媒体资源列表
+export async function getMediaList(
+  params: API_MEDIA.MediaParams,
+): Promise<API_MEDIA.MediaDataRes> {
+  const { current, pageSize } = params;
+  return PocketBase.collection('media')
+    .getList<API_MEDIA.ResponseListData<API_MEDIA.MediaData>>(
+      current,
+      pageSize,
+      {
+        
+      }
+    ) as any;
 }
 
-// 媒体删除
-export const deleteMedia = (params: API_MEDIA.IDeleteMediaParams) => {
-  return request('/api/manage/media', {
-    method: 'DELETE',
-    params
-  })
-}
-
-// 媒体修改
-export const updateMedia = (data: API_MEDIA.IPutMediaParams) => {
-  return request('/api/manage/media', {
-    method: 'PUT',
-    data
-  })
-}
-
-// 媒体上传验证
-export const getMediaValid = (params: API_MEDIA.IGetMediaValidParams) => {
-  return request<API_MEDIA.IGetMediaValidRes>('/api/manage/media/valid', {
-    method: 'GET',
-    params
-  })
-}
-
-// 海报生成
-export const generateVideoPoster = (data: API_MEDIA.IPutVideoPoster) => {
-  return request('/api/media/video/poster', {
-    method: "PUT",
-    data
-  })
+// 删除媒体资源
+export async function deleteMedia(
+  params: { id: string }
+) {
+  return PocketBase.collection('media')
+    .delete(params.id)
 }

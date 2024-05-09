@@ -67,10 +67,6 @@ class Register extends Component<any> {
             {status === 'error' && !submitting && (
               <LoginMessage content="账户或密码不合理（admin/ant.design）" />
             )}
-            <Mobile
-              name="mobile"
-              placeholder="请输入手机号"
-            />
             <Username
               name="username"
               placeholder="请输入用户名"

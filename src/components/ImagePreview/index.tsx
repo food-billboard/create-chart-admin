@@ -23,8 +23,12 @@ const ImagePreview = forwardRef<ImagePreviewRef, any>((props, ref) => {
 
   return (
     <Modal
-      visible={visible}
-      bodyStyle={{padding: 0}}
+      open={visible}
+      styles={{
+        body: {
+          padding: 0
+        }
+      }}
       footer={null}
       onCancel={() => setVisible(false)}
     >

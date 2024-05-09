@@ -28,7 +28,7 @@ export default [
   },
   {
     title: '创建时间',
-    dataIndex: 'createdAt',
+    dataIndex: 'created',
     valueType: 'dateRange',
     hideInTable: true 
   },

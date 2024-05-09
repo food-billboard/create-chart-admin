@@ -30,7 +30,7 @@ export interface LoginItemProps extends Partial<FormItemProps> {
   updateActive?: LoginContextProps['updateActive'];
   type?: string;
   defaultValue?: string;
-  customProps?: { [key: string]: unknown };
+  customProps?: { [key: string]: any };
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   tabUtil?: LoginContextProps['tabUtil'];
   captchaStatus?: 'register' | 'forget'
@@ -144,7 +144,7 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
   }
   return (
     <FormItem name={name} {...options}>
-      <Input {...customProps} {...otherProps} />
+      <Input {...customProps as any} {...otherProps as any} />
     </FormItem>
   );
 };
@@ -153,7 +153,7 @@ const LoginItems: Partial<LoginItemType> = {};
 
 Object.keys(ItemMap).forEach((key) => {
   const item = ItemMap[key];
-  LoginItems[key] = (props: LoginItemProps) => (
+  (LoginItems as any)[key] = (props: LoginItemProps) => (
     <LoginContext.Consumer>
       {(context) => (
         <LoginItem

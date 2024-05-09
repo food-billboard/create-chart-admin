@@ -87,8 +87,8 @@ declare namespace API_USER {
     mobile: number;
     email: string;
     roles: keyof typeof UserRole;
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
     status: keyof typeof UserStatus;
     avatar: string;
   }
@@ -134,8 +134,8 @@ declare namespace API_USER {
       id: string;
       username: string;
     };
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
     sub_comments: number;
     total_like: number;
     source: string;
@@ -165,8 +165,8 @@ declare namespace API_USER {
       id: string;
       username: string;
     };
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
     status: TFeedbackStatus;
     content: {
       text: string;
@@ -199,8 +199,8 @@ declare namespace API_USER {
       id: string;
       username: string;
     };
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
     glance: number;
     hot: number;
     rate_person: number;
@@ -223,7 +223,7 @@ declare namespace API_USER {
     rate_person: number;
     total_rate: number;
     source_type: API_DATA.IDataSourceType;
-    createdAt: string;
+    created: string;
     value: number;
   }
 
@@ -250,8 +250,8 @@ declare namespace API_ADMIN {
     mobile: number;
     email: string;
     roles: keyof typeof API_USER.API_USER;
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
     avatar: string;
     description: string;
   }
@@ -278,8 +278,8 @@ declare namespace API_ADMIN {
   export interface IGetAdminIssueListData {
     id: string;
     name: string;
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
     glance: number;
     hot: number;
     rate_person: number;
@@ -300,8 +300,8 @@ declare namespace API_ADMIN {
 
   export interface IGetAdminCommentData {
     id: string;
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
     sub_comments: number;
     total_like: number;
     source: string;
@@ -332,83 +332,63 @@ declare namespace Upload {
     id: string;
     updated: string;
   };
-
 }
 
 declare namespace API_MEDIA {
-  type TStatus = 'ERROR' | 'COMPLETE' | 'UPLOADING';
-  type TAuth = 'PRIVATE' | 'PUBLIC';
 
-  export interface IGetMediaListParams {
-    currPage?: number;
-    pageSize?: number;
-    content?: string;
-    type: 0 | 1 | 2;
-    id?: string;
-    origin_type?: API_DATA.IDataSourceType;
-    auth?: TAuth;
-    status?: TStatus;
-    size?: number | string;
-  }
-
-  export interface IGetMediaListRes {
-    total: number;
-    list: IGetMediaListData[];
-  }
-
-  export interface IGetMediaListData {
-    id: string;
-    src: string;
-    name: string;
-    poster?: string;
-    createdAt: string;
-    updatedAt: string;
-    origin_type: API_DATA.IDataSourceType;
-    white_list_count: number;
-    origin: {
-      name: string;
-      id: string;
+  export type ResponseListData<T = any> = {
+    data: {
+      res: {
+        list: T[];
+        total: number;
+      };
     };
-    auth: TAuth;
-    info: {
-      md5: string;
-      status: TStatus;
-      size: number;
-      mime: string;
-    };
-  }
-
-  export interface IPutMediaParams extends Pick<IGetMediaListParams, 'auth' | 'status' | 'auth'> {
-    id: string;
-    type: 0 | 1 | 2;
-    name?: string;
-  }
-
-  export interface IDeleteMediaParams extends Pick<IPutMediaParams, 'id' | 'type'> {}
-
-  export interface IGetMediaValidParams extends Pick<IPutMediaParams, 'id' | 'type'> {
-    isdelete?: boolean;
-  }
-
-  export interface IPutVideoPoster {
-    id: string;
-    time?: string;
-    auth?: 'PRIVATE' | 'PUBLIC';
-    origin_type?: 'ORIGIN' | 'USER';
-    name?: string;
-    overlap?: boolean;
-  }
-
-  export type IGetMediaValidData = {
-    complete: boolean;
-    error: boolean;
-    exists: boolean;
-    id: string;
-    src: string;
-    name: string;
   };
 
-  export type IGetMediaValidRes = IGetMediaValidData[];
+  export type MediaParams = {
+    current: number;
+    pageSize: number;
+    classic?: string;
+  };
+
+  export type MediaData = {
+    // 文件对应的数据id
+    collectionId: string;
+    // 文件对应的数据集名
+    collectionName: string;
+    created: string;
+    // 文件
+    file: string;
+    // 文件id
+    id: string;
+    updated: string;
+  };
+
+  export type MediaDataRes = {
+    total: number;
+    list: MediaData[];
+  };
+
+  export type MediaClassicData = {
+    label: string;
+    value: string;
+  };
+
+  export type AddMediaClassicParams = {
+    label: string;
+  };
+
+  export type UpdateMediaClassParams = AddMediaClassicParams & {
+    value: string;
+  };
+
+  export type AddMediaDataParams = {
+    collectionId: string;
+    id: string;
+    file: string;
+  };
+
+  export type DeleteMediaDataParams = AddMediaDataParams;
 }
 
 declare namespace API_SCREEN {
@@ -423,8 +403,8 @@ declare namespace API_SCREEN {
       avatar: string;
       id: string;
     };
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
   };
 
   export type IPostScreenMockDataParams = {
@@ -448,8 +428,8 @@ declare namespace API_SCREEN {
     pageSize?: number;
     content?: string;
     enable?: '0' | '1';
-    createdAt?: [string, string];
-    flag?: 'PC' | 'H5'
+    created?: [string, string];
+    flag?: 'PC' | 'H5';
   };
 
   export type IGetScreenListData = {
@@ -457,8 +437,8 @@ declare namespace API_SCREEN {
     flag: 'PC' | 'H5';
     name: string;
     description: string;
-    createdAt: string;
-    updatedAt: string;
+    created: string;
+    updated: string;
     user: {
       username: string;
       avatar: string;

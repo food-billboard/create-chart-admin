@@ -1,6 +1,5 @@
 import { defineConfig } from 'umi';
 import { merge } from 'lodash';
-import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routerConfig from './router-config';
 
@@ -26,13 +25,12 @@ const commonConfig = {
   targets: {
     ie: 11,
   },
-  routes: routerConfig,
   theme: {
-    'primary-color': defaultSettings.primaryColor,
+    'primary-color': '#1890ff',
   },
+  routes: routerConfig,
   // @ts-ignore
   title: false,
-  ignoreMomentLocale: true,
   proxy: (proxy as any)[REACT_APP_ENV || 'prod'],
   manifest: {
     basePath: '/',
@@ -42,12 +40,14 @@ const commonConfig = {
 const developmentConfig: any = merge({}, commonConfig, {
   define: {
     'process.env.REACT_APP_ENV': 'dev',
+    'process.env.API_IMPROVE_URL': process.env.API_IMPROVE_URL
   },
 });
 
 const productionConfig: any = merge({}, commonConfig, {
   define: {
     'process.env.REACT_APP_ENV': 'prod',
+    'process.env.API_IMPROVE_URL': process.env.API_IMPROVE_URL
   },
   chunks: ['antdesigns', 'vendors', 'commons', 'umi'],
   //-----打包配置
@@ -58,9 +58,9 @@ const productionConfig: any = merge({}, commonConfig, {
     config
       .plugin('replace')
       .use(require('webpack').ContextReplacementPlugin)
-      .tap(() => {
-        return [/moment[/\\]locale$/, /zh-cn/];
-      });
+      // .tap(() => {
+      //   return [/moment[/\\]locale$/, /zh-cn/];
+      // });
 
     config.merge({
       optimization: {
@@ -80,7 +80,7 @@ const productionConfig: any = merge({}, commonConfig, {
             lfpvendors: {
               name: 'vendors',
               chunks: 'all',
-              test: /[\\/]node_modules[\\/](lodash|moment|react|dva|postcss)/,
+              test: /[\\/]node_modules[\\/](lodash|react|dva|postcss)/,
               priority: 10,
             },
             lfpcommons: {
@@ -100,22 +100,11 @@ const productionConfig: any = merge({}, commonConfig, {
   },
 });
 
-const productionLocalConfig: any = merge({}, productionConfig, {
-  define: {
-    'process.env.REACT_APP_ENV': 'prod-local',
-  },
-  base: '/api/backend/',
-  publicPath: '/api/backend/',
-});
-
 let realConfig;
 
 switch (REACT_APP_ENV) {
   case 'prod':
     realConfig = productionConfig;
-    break;
-  case 'prod-local':
-    realConfig = productionLocalConfig;
     break;
   default:
     realConfig = developmentConfig;

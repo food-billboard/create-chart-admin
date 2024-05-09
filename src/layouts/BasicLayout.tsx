@@ -6,8 +6,8 @@
 import ProLayout from '@ant-design/pro-layout'
 import type {
   MenuDataItem,
-  BasicLayoutProps as ProLayoutProps,
   Settings,
+  ProLayoutProps
 } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Link, useIntl, connect, history } from 'umi';
@@ -65,6 +65,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     dispatch,
     children,
     settings,
+    // @ts-ignore
     location = {
       pathname: '/',
     },
@@ -114,25 +115,29 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         }
         return <Link to={menuItemProps.path}>{defaultDom}</Link>;
       }}
-      breadcrumbRender={(routers = []) => [
-        {
-          path: '/',
-          breadcrumbName: formatMessage({ id: 'menu.home' }),
-        },
-        ...routers,
-      ]}
-      itemRender={(route, params, routes) => {
-        const index = routes.indexOf(route)
-        const last = index === routes.length - 1;
-        return !last ? (
-          <Link to={route.path}>{route.breadcrumbName}</Link>
-        ) : (
-          <span>{route.breadcrumbName}</span>
-        );
-      }}
+      // breadcrumbRender={(routers = []) => {
+      //   console.log(routers, 22222)
+      //   return [
+      //     {
+      //       path: '/',
+      //       breadcrumbName: formatMessage({ id: 'menu.home' }),
+      //     },
+      //     ...routers,
+      //   ]
+      // }}
+      // itemRender={(route, params, routes) => {
+      //   const index = routes.indexOf(route)
+      //   const last = index === routes.length - 1;
+      //   console.log(index, route, 22222)
+      //   return !last ? (
+      //     <Link to={route.path!}>{route.breadcrumbName}</Link>
+      //   ) : (
+      //     <span>{route.breadcrumbName}</span>
+      //   );
+      // }}
       footerRender={() => <Footer />}
       menuDataRender={menuDataRender}
-      rightContentRender={() => <RightContent />}
+      actionsRender={() => <RightContent />}
       postMenuData={(menuData) => {
         menuDataRef.current = menuData || [];
         return menuData || [];
