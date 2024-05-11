@@ -1,55 +1,49 @@
-import React, { memo, forwardRef, useImperativeHandle, useState, useCallback, useMemo } from 'react'
-import { unstable_batchedUpdates } from 'react-dom'
+import React, { forwardRef, useImperativeHandle, useState, useCallback } from 'react'
 import { Modal, Input } from 'antd'
-import { merge } from 'lodash'
 
-export type TFeedbackEditData = API_USER.IGetFeedbackData & { description?: string }
+export type TFeedbackEditData = API_FEEDBACK.GetFeedbackData
 
 export interface IFeedbackModalRef {
   open: (data?: TFeedbackEditData) => void
 }
 
 export interface IFeedbackModalProps {
-  onOk?: (data: TFeedbackEditData) => Promise<boolean>
+  onOk?: (data: {
+    replay: string 
+    id?: string 
+  }) => Promise<boolean>
   onCancel?: () => Promise<boolean>
 }
 
-export default memo(forwardRef<IFeedbackModalRef, IFeedbackModalProps>((props, ref) => {
+export default forwardRef<IFeedbackModalRef, IFeedbackModalProps>((props, ref) => {
 
-  const [ visible, setVisible ] = useState<boolean>(false)
-  const [ data, setData ] = useState<TFeedbackEditData>()
+  const { onOk, onCancel } = props
+
+  const [ visible, setVisible ] = useState(false)
+  const [ inputValue, setInputValue ] = useState('')
+  const [ feedbackId, setFeedbackId ] = useState('')
 
   const openModal = useCallback((values?: TFeedbackEditData) => {
-    unstable_batchedUpdates(() => {
-      if(values) {
-        setData(() => {
-          const { status, ...nextData } = values
-          return merge({}, nextData, {
-            status: status === 'DEALING' ? 'DEAL' : 'DEALING' as API_USER.TFeedbackStatus
-          })
-        })
-      }
+    setFeedbackId(values?.id || '')
       setVisible(true)
-    })
   }, [])
 
   useImperativeHandle(ref, () => ({
     open: openModal
   }), [openModal])
 
-  const { onOk, onCancel } = useMemo(() => {
-    return props
-  }, [props])
-
   const onInputOk = useCallback(async () => {
     let res = true 
     if(onOk) {
-      res = await onOk(data!)
+      res = await onOk({
+        replay: inputValue,
+        id: feedbackId
+      })
     }
     if(res) {
       setVisible(false)
     }
-  }, [onOk, data])
+  }, [onOk, inputValue, feedbackId])
 
   const onInputCancel = useCallback(async () => {
     let res = true 
@@ -75,10 +69,10 @@ export default memo(forwardRef<IFeedbackModalRef, IFeedbackModalProps>((props, r
         defaultValue="输入对此次处理的描述"
         maxLength={100}
         showCount
-        value={data?.description}
-        onChange={(e) => setData(prevData => merge({}, prevData, { description: e.target.value }))}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
       />
     </Modal>
   )
 
-}))
+})

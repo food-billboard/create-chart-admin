@@ -473,3 +473,34 @@ declare namespace API_SCREEN {
       | 'name';
   };
 }
+
+declare namespace API_FEEDBACK {
+
+  export type GetFeedbackParams = {
+    current: number;
+    pageSize: number;
+    type: string 
+    deal: boolean 
+    description: string 
+    replay: string 
+  }
+
+  export type GetFeedbackData = {
+    id: string 
+    description: string 
+    type: string 
+    image: string[] 
+    deal: boolean 
+    replay: string 
+    created: string 
+    updated: string 
+    expand: {
+      user: {
+        username: string 
+        id: string 
+        avatar: string 
+      }
+    }
+  }
+
+}
