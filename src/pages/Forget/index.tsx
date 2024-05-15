@@ -66,14 +66,14 @@ class Register extends Component<any> {
               name="email"
               placeholder="请输入邮箱"
             />
-            <Captcha
+            {/* <Captcha
               name="captcha"
               placeholder="验证码"
               countDown={120}
               getCaptchaButtonText=""
               getCaptchaSecondText="秒"
               captchaStatus={'forget'}
-            />
+            /> */}
             <Password
               name="password"
               placeholder="请输入密码"

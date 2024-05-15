@@ -25,8 +25,8 @@ export default [
   },
   {
     path: '/',
-    // component: '@/layouts/SecurityLayout',
-    // wrappers: ['@/layouts/Authority'],
+    component: '@/layouts/SecurityLayout',
+    wrappers: ['@/layouts/Authority'],
     routes: [
       {
         path: '/',

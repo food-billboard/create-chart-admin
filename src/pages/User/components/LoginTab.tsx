@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Tabs } from 'antd';
+import { Tabs, TabPaneProps } from 'antd';
 import LoginContext, { LoginContextProps } from './LoginContext';
 
 const { TabPane } = Tabs;
@@ -11,8 +11,6 @@ const generateId = (() => {
     return `${prefix}${i}`;
   };
 })();
-
-type TabPaneProps = Parameters<typeof Tabs.TabPane>[0];
 
 interface LoginTabProps extends TabPaneProps {
   tabUtil: LoginContextProps['tabUtil'];

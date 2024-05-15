@@ -1,4 +1,5 @@
-import PocketBase from '../utils/pocketBaseRequest';
+import { createImproveUploadResultFileUrl } from '../utils/Upload';
+import PocketBase, { getUserInfo as getLocalUserInfo } from '../utils/pocketBaseRequest';
 
 export interface LoginParamsType {
   username: string;
@@ -19,12 +20,19 @@ export interface ResetParamsType
 
 // 获取当前用户信息
 export async function getUserInfo() {
-  return {}
-  return PocketBase.collection('user')
+  return PocketBase.collection('users')
     .authRefresh()
     .then((data) => {
-      console.log(data, 222222);
-      return data;
+      const { record, token } = data;
+      return {
+        token,
+        ...record,
+        _id: record.id,
+        avatar: createImproveUploadResultFileUrl({
+          ...record,
+          file: record.avatar,
+        } as any),
+      };
     });
 }
 
@@ -32,7 +40,7 @@ export async function getUserInfo() {
 export async function accountLogin(
   params: Pick<LoginParamsType, 'email' | 'password'>,
 ) {
-  return PocketBase.collection('user').authWithPassword(
+  return PocketBase.collection('users').authWithPassword(
     params.email,
     params.password,
   );
@@ -43,7 +51,7 @@ export async function getCaptcha(
   email: string,
   type: 'register' | 'forget',
 ) {
-  return PocketBase.collection('user').requestVerification(email);
+  return PocketBase.collection('users').requestVerification(email);
 }
 
 // 退出登录
@@ -53,18 +61,20 @@ export async function outLogin() {
 
 // 忘记密码
 export async function forgetPassword(params: ResetParamsType) {
-  return PocketBase.collection('user').requestPasswordReset(params.email);
+  return PocketBase.collection('users').confirmPasswordReset(
+    getLocalUserInfo().token,
+    params.password,
+    params.password,
+  );
 }
 
 // 注册
 export async function register(params: RegisterParamsType) {
   const { email, password } = params;
-  return PocketBase.collection('user').create({
-    username: `一条咸鱼${Date.now()}`,
+  return PocketBase.collection('users').create({
+    username: `a-salted-fish-${Date.now()}`,
     email,
     password,
     passwordConfirm: password,
-    avatar: `${process.env.API_IMPROVE_URL}/api/files/2032389060504322048/2047184411262189568/OxXgNBVZeA_NWHbVLN0eo.jpg`,
   });
 }
-

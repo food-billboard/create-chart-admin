@@ -7,7 +7,7 @@ import { mapStateToProps, mapDispatchToProps } from './connect'
 import styles from './style.less';
 import { withTry } from '@/utils'
 
-const { Tab, Password, Submit, Mobile } = LoginFrom;
+const { Tab, Password, Submit, Mobile, Email } = LoginFrom;
 
 const LoginMessage: React.FC<{
   content: string;
@@ -80,9 +80,9 @@ class Login extends Component<any> {
               <LoginMessage content="账户或密码错误（admin/ant.design）" />
             )}
 
-            <Mobile
-              name="mobile"
-              placeholder="请输入手机号"
+            <Email
+              name="email"
+              placeholder="请输入邮箱"
             />
             <Password
               name="password"
